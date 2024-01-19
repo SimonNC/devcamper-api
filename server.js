@@ -6,6 +6,7 @@ const colors = require("colors");
 const fileupload = require("express-fileupload");
 const connectDB = require("./config/db");
 const ErrorHandler = require("./middleware/error");
+const cookieParser = require("cookie-parser");
 
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -21,6 +22,9 @@ const auth = require("./routes/auth");
 const app = express();
 //Body parser
 app.use(express.json());
+
+//Cookie parser
+app.use(cookieParser());
 
 //Development logging middleware
 if (process.env.NODE_ENV === "development") {
