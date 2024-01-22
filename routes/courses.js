@@ -2,9 +2,9 @@ const express = require("express");
 const {
   getCourses,
   getCourse,
-  createCourse,
   updateCourse,
   deleteCourse,
+  addcourse,
 } = require("../controllers/courses");
 
 const Course = require("../models/Course");
@@ -28,6 +28,6 @@ router
     }),
     getCourses
   )
-  .post(protect, authorize("publisher", "admin"), createCourse);
+  .post(protect, authorize("publisher", "admin"), addcourse);
 
 module.exports = router;
