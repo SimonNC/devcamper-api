@@ -1,3 +1,9 @@
+/**
+ * Courses router.
+ * Defines routes for managing courses.
+ * Includes middleware for authentication and authorization.
+ * Routes map to controller functions for retrieving, adding, updating and deleting courses.
+ */
 const express = require("express");
 const {
   getCourses,
