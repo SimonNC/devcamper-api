@@ -8,7 +8,7 @@ const ErrorHandler = (err, req, res, next) => {
 
   // Mongoose bad ObjectId error
   if (err.name === "CastError") {
-    const message = `Bootcamp not found. Invalid ${err.path}: ${err.value}`;
+    const message = `Resource not found. Invalid ${err.path}: ${err.value}`;
     error = new ErrorResponse(message, 404);
   }
   // Mongoose duplicate key error
