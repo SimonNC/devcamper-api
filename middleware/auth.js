@@ -1,3 +1,12 @@
+/**
+ * Middleware functions for handling authentication and authorization:
+ *
+ * - protect: Verifies JWT token from request headers or cookies.
+ *   Decodes token and attaches user object to request.
+ *
+ * - authorize: Checks if user role is authorized to access route.
+ *   Returns 403 error if not authorized.
+ */
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("./async");
 const ErrorResponse = require("../utils/errorResponse");
@@ -10,8 +19,10 @@ exports.protect = asyncHandler(async (req, res, next) => {
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
+    //set token from Bearer token
     token = req.headers.authorization.split(" ")[1];
   } else if (req.cookies.token) {
+    //set token from cookie
     token = req.cookies.token;
   }
   if (!token) {
