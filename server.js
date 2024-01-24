@@ -13,6 +13,9 @@ const sanitizer = require("express-html-sanitizer");
 const { rateLimit } = require("express-rate-limit");
 const hpp = require("hpp");
 const cors = require("cors");
+const swaggerJSDoc = require("swagger-jsdoc");
+const options = require("./swagger.jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -56,7 +59,7 @@ const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
   max: 100,
 });
-app.user(limiter);
+app.use(limiter);
 
 //Prevent parameter pollution
 app.use(hpp());
@@ -75,6 +78,9 @@ app.use("/api/v1/users", users);
 app.use("/api/v1/reviews", reviews);
 
 app.use(ErrorHandler);
+
+const specs = swaggerJSDoc(options);
+app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 const PORT = process.env.PORT || 5000;
 
